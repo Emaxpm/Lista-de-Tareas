@@ -1,8 +1,11 @@
 import TareaTarjeta from "@/components/ui/TareaTarjeta";
-import { tareas } from "@/contants";
+import { obtenerTareas } from "@/lib/action.tarea";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+
+ // const tarea = await createTarea()
+ const tareas = await obtenerTareas() as tareaInterFace[];
 
   console.log("tareas", tareas)
   return (
@@ -23,14 +26,13 @@ export default function Home() {
             <TareaTarjeta
             key={index}
             titulo={tarea.titulo}
-            desc={tarea.desc}
-            date={tarea.date}
+            desc={tarea.descripcion}
+            date={new Date(tarea.fechaACompletar).toLocaleDateString("es-ES")}
             isCompleted={tarea.isCompleted}
 
             />
           ))}
-        
-        
+
       </section>
     </div>
   );
