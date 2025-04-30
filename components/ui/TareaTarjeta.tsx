@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { CheckIcon, Trash2, Pencil } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { useRouter } from 'next/navigation'
+import { borrarTarea } from '@/lib/action.tarea'
 
 type Props = {
     _id: string,
@@ -32,6 +33,12 @@ const TareaTarjeta = ({_id, titulo, desc, date, isCompleted }: Props) => {
 
     const handleEditar = () =>{
         router.push(`/tareas/editar/${_id}`)
+    }
+
+    async function handleEliminar() {
+        if(_id){   
+        const tareaBorrada = await borrarTarea(_id);
+        }
     }
 
     return (
@@ -59,7 +66,7 @@ const TareaTarjeta = ({_id, titulo, desc, date, isCompleted }: Props) => {
 
                 <div className='flex gap-3'>
                     <Pencil className='text-gray-400 hover:text-blue-500 cursor-pointer' onClick={handleEditar} />
-                    <Trash2 className='text-gray-400 hover:text-red-500 cursor-pointer' />
+                    <Trash2 className='text-gray-400 hover:text-red-500 cursor-pointer' onClick={handleEliminar}/>
                 </div>
             </CardFooter>
 
