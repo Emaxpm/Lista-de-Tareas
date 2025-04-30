@@ -1,25 +1,22 @@
 import { Schema, model, models } from "mongoose";
 
 const tareaSchema = new Schema({
-    titulo:{
-        type: String,
-        require: true,
-    },
+  titulo: {
+    type: String,
+    required: true,
+  },
+  descripcion: {
+    type: String,
+  },
+  fechaACompletar: {
+    type: Date,
+    default: () => new Date(),
+  },
+  isCompleted: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-    descripcion:{
-        type: String,
-    },
-
-    fechaACompletar:{
-        type: Date,
-        default: new Date()
-    },
-
-    isCompleted:{
-        type: Boolean,
-    },
-})
-
-const tarea = models.tarea || model("tarea", tareaSchema)
-
-export default tarea
+const Tarea = models.Tarea || model("Tarea", tareaSchema);
+export default Tarea;

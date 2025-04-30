@@ -6,9 +6,9 @@ declare type tareaNueva = {
 }
 
 declare type tareaInterFace = {
-    id: string;
-    titulo:string;
+    _id: string;
+    titulo: string;
     descripcion: string;
-    fechaACompletar: string;
-    isCompleted: boolean
+    fechaACompletar: Date; // <-- usar Date
+    isCompleted: boolean;
 }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -28,31 +28,50 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { createTarea } from "@/lib/action.tarea"
+import { createTarea, editarTarea } from "@/lib/action.tarea"
 import { useRouter } from "next/navigation"
 
 // Validación con Zod
 const formSchema = z.object({
+    _id:z.string().optional(),
     titulo: z.string().min(2),
     descripcion: z.string(),
     fechaACompletar: z.date(),
     isCompleted: z.boolean(),
 })
 
-const FormularioTareaNueva = () => {
+type Props = {
+    type: "crear" | "editar";
+    data?: tareaInterFace;
+}
+
+const FormularioTareaNueva = ({ type, data }: Props) => {
 
     const [date, setDate] = React.useState<Date>()
     const router = useRouter();
 
+    const tareaValoresPorDefecto = {
+        titulo: "",
+        descripcion: "",
+        fechaACompletar: new Date(),
+        isCompleted: false,
+    }
+
+    const tareaEditarValores = {
+        _id: data?._id,
+        titulo: data?.titulo,
+        descripcion: data?.descripcion,
+        fechaACompletar: data?.fechaACompletar ? new Date(data?.fechaACompletar) : new Date(),
+        isCompleted: data?.isCompleted
+    }
+
+    const valoresIniciales = data && type === "editar" ? tareaEditarValores : tareaValoresPorDefecto;
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            titulo: "",
-            descripcion: "",
-            fechaACompletar: new Date(),
-            isCompleted: false,
-        },
-    })
+        defaultValues: valoresIniciales,
+    });
+
 
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -60,13 +79,30 @@ const FormularioTareaNueva = () => {
         // ✅ This will be type-safe and validated.
         console.log(values)
         try {
-            const tareaNueva = await createTarea(values)
 
-            if(tareaNueva){
-                router.push("/")
-            } else{
-                
+            if (type === "crear") {
+                const tareaNueva = await createTarea(values)
+
+                if (tareaNueva) {
+                    router.push("/")
+                    form.reset();
+                } else {
+
+                }
             }
+
+            if (type === "editar" && values._id) {
+                const tareaActualizada = await editarTarea(values as tareaInterFace);
+
+                if (tareaActualizada) {
+                    router.push("/")
+                    form.reset();
+                } else {
+
+                }
+            }
+
+
 
         } catch (error) {
             console.log("Error:", error)
@@ -160,7 +196,7 @@ const FormularioTareaNueva = () => {
                     )}
                 />
 
-                <Button type="submit">Submit</Button>
+                <Button type="submit">Crear</Button>
 
             </form>
         </Form>

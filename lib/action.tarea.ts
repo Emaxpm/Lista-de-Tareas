@@ -1,19 +1,12 @@
 "use server"
-
-import tarea from "@/models/tareas"
+import Tarea from "@/models/tareas"; // Asegúrate que el modelo se llama 'Tarea' como en el modelo que corregimos
 import { connectToDataBase } from "@/utils/database"
 
 export const createTarea = async(tareaNueva: tareaNueva) =>{
-    // const tareaNueva = {
-    //     titulo: "Hola soy prueba",
-    //     desc: "Holaaa sigo siendo la prueba",
-    //     isCompleted: false
-    // }
-
-    await connectToDataBase();
 
     try {
-        const tareas = new tarea(tareaNueva) 
+        await connectToDataBase();
+        const tareas = new Tarea(tareaNueva) 
         const tareaCreada = await tareas.save()
 
         return JSON.parse(JSON.stringify(tareaCreada))
@@ -23,36 +16,33 @@ export const createTarea = async(tareaNueva: tareaNueva) =>{
     }
 }
 
-export const editarTarea = async() =>{
-
-    await connectToDataBase();
-
+export const editarTarea = async (tareaDatos: tareaInterFace) => {
     try {
-        const tareaID = "680bdae0fa414680e48fc083"
+        await connectToDataBase();
 
-        const tareaNueva = {
-            titulo: "Hola soy prueba 2",
-            desc: "Holaaa sigo siendo la prueba 222",
-            isCompleted: false
-        }
+        const tareaAEditar = await Tarea.findById(tareaDatos._id) as tareaInterFace;
 
-        const tareaActualizada = await tarea.findByIdAndUpdate(tareaID, tareaNueva, {new:true})
+        if (!tareaAEditar) return;
 
-        return JSON.parse(JSON.stringify(tareaActualizada))
+        const tareaActualizada = await Tarea.findByIdAndUpdate(
+            tareaAEditar._id,
+            tareaDatos,
+            { new: true }
+        );
 
+        return JSON.parse(JSON.stringify(tareaActualizada));
     } catch (error) {
-        
+        console.error("Error al editar la tarea:", error);
     }
-}
+};
 
 export const borrarTarea = async () => {
-
-    await connectToDataBase();
-
+    
     try {
+        await connectToDataBase();
         const tareaID = "680bdfa4fa414680e48fc085"
 
-        const tareaBorrada = await tarea.findByIdAndDelete(tareaID)
+        const tareaBorrada = await Tarea.findByIdAndDelete(tareaID)
 
         return "ok"
     } catch (error) {
@@ -61,11 +51,29 @@ export const borrarTarea = async () => {
 }
 
 export const obtenerTareas = async () => {
+
     try {
-        const tareas = await tarea.find();
+
+        await connectToDataBase();
+
+        const tareas = await Tarea.find();
         return JSON.parse(JSON.stringify(tareas));
     } catch (error) {
         console.error("Error al obtener tareas:", error);
-        return []; // ⚠️ Esto evita que tareas sea undefined
+        return []; 
+    }
+};
+
+export const obtenerTarea = async (tareaId: string) => {
+
+    try {
+
+        await connectToDataBase();
+
+        const tareas = await Tarea.findById(tareaId);
+        return JSON.parse(JSON.stringify(tareas));
+    } catch (error) {
+        console.error("Error al obtener tareas:", error);
+        return []; 
     }
 };

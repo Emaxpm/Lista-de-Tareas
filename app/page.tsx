@@ -1,10 +1,11 @@
 import TareaTarjeta from "@/components/ui/TareaTarjeta";
 import { obtenerTareas } from "@/lib/action.tarea";
 import Image from "next/image";
+import { Button } from "@/components/ui/button"
+import Link from "next/link";
 
 export default async function Home() {
 
- // const tarea = await createTarea()
  const tareas = await obtenerTareas() as tareaInterFace[];
 
   console.log("tareas", tareas)
@@ -20,11 +21,19 @@ export default async function Home() {
 
       </div>
 
+      <div className="flex justify-end w-full">
+        <Link href="/tareas/crear">
+        <Button className="mb-4" variant="default">Crear tarea </Button>
+        </Link>
+        
+      </div>
+
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full ">
         {
           tareas.map((tarea,index) => (
             <TareaTarjeta
             key={index}
+            _id={tarea._id}
             titulo={tarea.titulo}
             desc={tarea.descripcion}
             date={new Date(tarea.fechaACompletar).toLocaleDateString("es-ES")}
