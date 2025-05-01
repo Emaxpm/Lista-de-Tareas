@@ -10,7 +10,7 @@ export default async function Home() {
 
   console.log("tareas", tareas)
   return (
-    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] 	bg-slate-300">
+    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] min-h-screen p-8 pb-20 sm:p-20 bg-gradient-to-br from-blue-300 via-purple-200 to-pink-200">
       <div className="flex flex-col gap-4 items-center max-w-screen-sm mb-18">
 
         <h1 className="text-4xl font-semibold text-gray-900 drop-shadow-xl">Lista de tareas</h1>

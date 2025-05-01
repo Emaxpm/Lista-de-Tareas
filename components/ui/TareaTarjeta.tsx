@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button"
 import { CheckIcon, Trash2, Pencil } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { useRouter } from 'next/navigation'
-import { borrarTarea } from '@/lib/action.tarea'
+import { borrarTarea, ToggleEstadoTarea } from '@/lib/action.tarea'
 
 type Props = {
     _id: string,
@@ -22,22 +22,26 @@ type Props = {
     isCompleted: boolean;
 }
 
-const TareaTarjeta = ({_id, titulo, desc, date, isCompleted }: Props) => {
+const TareaTarjeta = ({ _id, titulo, desc, date, isCompleted }: Props) => {
 
     const [completed, setCompleted] = useState(isCompleted)
     const router = useRouter()
 
-    const handleClick = () => {
-        setCompleted((prevState) => !prevState)
+    const handleCompletarTarea = async () => {
+
+        if (_id) {
+            const tareaActualizada = await ToggleEstadoTarea(_id);
+            setCompleted(tareaActualizada.isCompleted);
+        }
     }
 
-    const handleEditar = () =>{
+    const handleEditar = () => {
         router.push(`/tareas/editar/${_id}`)
     }
 
     async function handleEliminar() {
-        if(_id){   
-        const tareaBorrada = await borrarTarea(_id);
+        if (_id) {
+            const tareaBorrada = await borrarTarea(_id);
         }
     }
 
@@ -59,14 +63,21 @@ const TareaTarjeta = ({_id, titulo, desc, date, isCompleted }: Props) => {
                 </p>
 
                 {completed ? (
-                    <CheckIcon className='text-green-600' />
+                    <button
+                        onClick={handleCompletarTarea}
+                        title="Desmarcar tarea"
+                        className="p-1 rounded hover:bg-gray-100 transition"
+                    >
+                        <CheckIcon className="text-green-600 hover:text-green-800" />
+                    </button>
                 ) : (
-                    <Button variant="outline" onClick={handleClick}>Completar</Button>
+                    <Button variant="outline" onClick={handleCompletarTarea}>Completar</Button>
                 )}
+
 
                 <div className='flex gap-3'>
                     <Pencil className='text-gray-400 hover:text-blue-500 cursor-pointer' onClick={handleEditar} />
-                    <Trash2 className='text-gray-400 hover:text-red-500 cursor-pointer' onClick={handleEliminar}/>
+                    <Trash2 className='text-gray-400 hover:text-red-500 cursor-pointer' onClick={handleEliminar} />
                 </div>
             </CardFooter>
 

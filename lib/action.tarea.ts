@@ -41,6 +41,31 @@ export const editarTarea = async (tareaDatos: tareaInterFace) => {
     }
 };
 
+export const ToggleEstadoTarea = async (tareaId: string) => {
+    try {
+        await connectToDataBase();
+
+        const tareaAEditar = await Tarea.findById(tareaId) as tareaInterFace;
+
+        if (!tareaAEditar) return;
+
+        const tareaActualizada = await Tarea.findByIdAndUpdate(
+            tareaAEditar._id,
+            {
+                isCompleted: !tareaAEditar.isCompleted, // ← cambia al valor opuesto
+            },
+            { new: true }
+        );
+
+        revalidatePath("/");
+
+        return JSON.parse(JSON.stringify(tareaActualizada));
+    } catch (error) {
+        console.error("Error al editar la tarea:", error);
+    }
+};
+
+
 export const borrarTarea = async (id: string) => {
     try {
         await connectToDataBase();
