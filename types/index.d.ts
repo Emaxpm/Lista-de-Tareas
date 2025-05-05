@@ -12,3 +12,11 @@ declare type tareaInterFace = {
     fechaACompletar: Date; // <-- usar Date
     isCompleted: boolean;
 }
+declare type etiquetaInterFace = {
+    _id: string;
+    nombre: string;
+}
+
+declare type etiquetaParams = {
+    nombre: string;
+}

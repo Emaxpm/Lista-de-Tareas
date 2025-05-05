@@ -18,5 +18,5 @@ const tareaSchema = new Schema({
   },
 });
 
-const Tarea = models.Tarea || model("Tarea", tareaSchema);
+const Tarea = models?.Tarea || model("Tarea", tareaSchema);
 export default Tarea;

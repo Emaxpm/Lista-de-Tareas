@@ -9,7 +9,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CheckIcon, Trash2, Pencil } from 'lucide-react'
+import { CheckIcon, Trash2, Pencil, CircleCheckBigIcon, CircleIcon } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { useRouter } from 'next/navigation'
 import { borrarTarea, ToggleEstadoTarea } from '@/lib/action.tarea'
@@ -62,22 +62,20 @@ const TareaTarjeta = ({ _id, titulo, desc, date, isCompleted }: Props) => {
                     {date}
                 </p>
 
-                {completed ? (
-                    <button
-                        onClick={handleCompletarTarea}
-                        title="Desmarcar tarea"
-                        className="p-1 rounded hover:bg-gray-100 transition"
-                    >
-                        <CheckIcon className="text-green-600 hover:text-green-800" />
-                    </button>
-                ) : (
-                    <Button variant="outline" onClick={handleCompletarTarea}>Completar</Button>
-                )}
-
-
                 <div className='flex gap-3'>
+
                     <Pencil className='text-gray-400 hover:text-blue-500 cursor-pointer' onClick={handleEditar} />
+
                     <Trash2 className='text-gray-400 hover:text-red-500 cursor-pointer' onClick={handleEliminar} />
+
+                    {completed ? (
+                        
+                        <CircleCheckBigIcon className="text-green-600 cursor-pointer"  onClick={handleCompletarTarea} />
+
+                    ) : (
+                        <CircleIcon className="text-gray-400 hover:text-green-600 cursor-pointer" onClick={handleCompletarTarea}/>
+                    )}
+
                 </div>
             </CardFooter>
 

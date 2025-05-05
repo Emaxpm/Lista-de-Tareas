@@ -20,7 +20,7 @@ const page = () => {
     // }
 
   return (
-    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] min-h-screen p-8 pb-20 sm:p-20 bg-gradient-to-r from-green-200 via-blue-200 to-blue-400">
+    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
 
         <FormularioTareaNueva 
         type="crear" 
