@@ -3,10 +3,14 @@ import { obtenerTareas } from "@/lib/action.tarea";
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import Link from "next/link";
+import { obtenerEtiquetas } from "@/lib/action.etiqueta";
+
 
 export default async function Home() {
 
  const tareas = await obtenerTareas() as tareaInterFace[];
+ const etiquetas = await obtenerEtiquetas() as etiquetaInterFace[];
+
 
   console.log("tareas", tareas)
   return (
@@ -35,12 +39,8 @@ export default async function Home() {
           tareas.map((tarea,index) => (
             <TareaTarjeta
             key={index}
-            _id={tarea._id}
-            titulo={tarea.titulo}
-            desc={tarea.descripcion}
-            date={new Date(tarea.fechaACompletar).toLocaleDateString("es-ES")}
-            isCompleted={tarea.isCompleted}
-
+            tarea={tarea}
+            etiquetas={etiquetas}
             />
           ))}
 
