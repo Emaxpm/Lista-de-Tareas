@@ -3,13 +3,11 @@ import React, { useEffect, useState } from 'react'
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { CheckIcon, Trash2, Pencil, CircleCheckBigIcon, CircleIcon } from 'lucide-react'
+import { Trash2, Pencil, CircleCheckBigIcon, CircleIcon } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { useRouter } from 'next/navigation'
 import { borrarTarea, ToggleEstadoTarea } from '@/lib/action.tarea'
@@ -39,7 +37,7 @@ const TareaTarjeta = ({ tarea, etiquetas }: Props) => {
 
     async function handleEliminar() {
         if (tarea._id) {
-            const tareaBorrada = await borrarTarea(tarea._id);
+           await borrarTarea(tarea._id);
         }
     }
 
@@ -90,9 +88,7 @@ const TareaTarjeta = ({ tarea, etiquetas }: Props) => {
 
                 </div>
             </CardFooter>
-
         </Card>
-
     )
 }
 

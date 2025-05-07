@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/form"
 
 import { Input } from "@/components/ui/input"
-import { useRouter } from "next/navigation"
 import { createEtiqueta, editarEtiqueta } from "@/lib/action.etiqueta";
 
 // Validación con Zod
@@ -30,9 +29,6 @@ type Props = {
 }
 
 const FormularioEtiqueta = ({ type, data }: Props) => {
-
-    const [date, setDate] = React.useState<Date>()
-    const router = useRouter();
 
     const tareaValoresPorDefecto = {
         nombre: "",
@@ -52,11 +48,7 @@ const FormularioEtiqueta = ({ type, data }: Props) => {
         defaultValues: valoresIniciales,
     });
 
-
-    // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
         console.log(values)
         try {
 
@@ -79,8 +71,6 @@ const FormularioEtiqueta = ({ type, data }: Props) => {
 
                 }
             }
-
-
 
         } catch (error) {
             console.log("Error:", error)

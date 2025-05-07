@@ -13,12 +13,10 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-  FormDescription,
   FormMessage
 } from "@/components/ui/form"
 
 import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
 
 import {
   Select,
@@ -27,7 +25,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
 
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
@@ -42,7 +39,6 @@ import {
 import { createTarea, editarTarea } from "@/lib/action.tarea"
 import { useRouter } from "next/navigation"
 
-// Validación con Zod
 const formSchema = z.object({
   _id: z.string().optional(),
   titulo: z.string().min(2),
@@ -59,7 +55,6 @@ type Props = {
 
 const FormularioTareaNueva = ({ type, data, }: Props) => {
 
-  const [date, setDate] = React.useState<Date>()
   const router = useRouter();
   const [etiquetaLista, setEtiquetaLista] = useState<etiquetaInterFace[]>([])
 

@@ -2,12 +2,10 @@ import { obtenerTareas } from "@/lib/action.tarea";
 import { obtenerEtiquetas } from "@/lib/action.etiqueta";
 import TareaLista from "@/components/TareaLista";
 
-
 export default async function Home() {
 
   const tareas = await obtenerTareas() as tareaInterFace[];
   const etiquetas = await obtenerEtiquetas() as etiquetaInterFace[];
-
 
   console.log("tareas", tareas)
   return (

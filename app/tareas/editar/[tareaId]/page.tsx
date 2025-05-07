@@ -1,4 +1,3 @@
-// SIN "use client" – componente del servidor
 import { obtenerTarea } from "@/lib/action.tarea";
 import FormularioTareaNueva from "@/components/FormularioTareaNueva";
 
