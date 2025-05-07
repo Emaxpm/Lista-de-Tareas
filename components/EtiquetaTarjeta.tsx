@@ -13,7 +13,6 @@ const EtiquetaTarjeta = ({etiqueta}: Props) => {
         borrarEtiqueta(etiqueta._id!)
     }
 
-
   return (
     <div className='flex justify-between items-center gap-6 min-w-28 bg-white border rounded-full shadow p-3'>
         <span className='text-gray-800 capitalize'>
@@ -25,7 +24,6 @@ const EtiquetaTarjeta = ({etiqueta}: Props) => {
             className='text-gray-400 cursor-pointer hover:text-red-600'
             onClick={handleBorrar}
             />
-
     </div>
   )
 }

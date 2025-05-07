@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import { obtenerEtiquetas } from "@/lib/action.etiqueta";
 import { Textarea } from "@/components/ui/textarea"
-
 import {
   Form,
   FormField,
@@ -15,9 +14,7 @@ import {
   FormControl,
   FormMessage
 } from "@/components/ui/form"
-
 import { Input } from "@/components/ui/input"
-
 import {
   Select,
   SelectContent,
@@ -25,10 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
-
 import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -65,7 +60,6 @@ const FormularioTareaNueva = ({ type, data, }: Props) => {
     isCompleted: false,
     etiquetaId: "",
   }
-
   const tareaEditarValores = {
     _id: data?._id,
     titulo: data?.titulo,
@@ -74,7 +68,6 @@ const FormularioTareaNueva = ({ type, data, }: Props) => {
     isCompleted: data?.isCompleted,
     etiquedaId: data?.etiquetaId,
   }
-
   const valoresIniciales = data && type === "editar" ? tareaEditarValores : tareaValoresPorDefecto;
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -82,11 +75,7 @@ const FormularioTareaNueva = ({ type, data, }: Props) => {
     defaultValues: valoresIniciales,
   });
 
-
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values)
     try {
 
@@ -129,8 +118,7 @@ const FormularioTareaNueva = ({ type, data, }: Props) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="bg-white border rounded-md p-4 space-y-8">
 
-
-        <div className="flex flex-col lg:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-y-6 lg:gap-x-12">
 
           <div className="flex flex-col min-w-72 gap-6">
 
@@ -191,9 +179,8 @@ const FormularioTareaNueva = ({ type, data, }: Props) => {
                           mode="single"
                           selected={field.value}
                           onSelect={(date) => {
-                            // Asegurarse de que el valor sea una fecha antes de actualizar
                             if (date) {
-                              field.onChange(date); // Actualiza el valor en el formulario
+                              field.onChange(date);
                             }
                           }}
                           initialFocus
@@ -205,7 +192,6 @@ const FormularioTareaNueva = ({ type, data, }: Props) => {
                 </FormItem>
               )}
             />
-
 
             <FormField
               control={form.control}

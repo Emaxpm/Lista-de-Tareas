@@ -35,15 +35,15 @@ const TareaLista = ({ tareas, etiquetas }: Props) => {
     return (
         <div className='flex flex-col w-full gap-6 max-w[1024px]'>
 
-            <div className="flex justify-between w-full items-baseline">
+            <div className="flex flex-col md:flex-row justify-between w-full items-start md:items-baseline gap-4">
 
-                <input type="text" placeholder='Buscar...' value={buscar} onChange={(e) => setBuscar(e.target.value)} className='w-full max-w-[348px] p-2 border rounded-full shadow' />
+                <input type="text" placeholder='Buscar...' value={buscar} onChange={(e) => setBuscar(e.target.value)} className='w-full max-w-[348px] p-2 border rounded-full shadow bg-white' />
 
-                <Button className="mb-4" variant="default" onClick={handleClick}>Crear tarea </Button>
+                <Button className="mb-4 cursor-pointer" variant="default" onClick={handleClick}>Crear tarea </Button>
 
             </div>
 
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full ">
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
                 {
                     listaTareas.map((tarea, index) => (
                         <TareaTarjeta

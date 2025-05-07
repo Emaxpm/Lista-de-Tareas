@@ -12,13 +12,13 @@ const Navbar = () => {
         <ul className='flex justify-between gap-4'>
           {navegación.map((link) => {
 
-            const isActive = link.route === pathName || pathName.includes(`${link.route}`);
+            const isActive = pathName === link.route;
 
             return (
               <li
-               key={link.route}
-               className={`text-lg font-semibold rounded-md hover:bg-blue-100V ${isActive ? "bg-blue-600 text-white" : ""}`}
-               >
+                key={link.route}
+                className={`text-lg font-semibold rounded-md hover:bg-blue-100V ${isActive ? "bg-[#101828] text-white" : ""}`}
+              >
                 <Link className='px-2 w-full cursor-pointer' href={link.route}>
                   {link.titulo}
                 </Link>
