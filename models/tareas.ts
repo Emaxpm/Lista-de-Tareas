@@ -16,7 +16,11 @@ const tareaSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  etiquetaId: {
+    type: Schema.Types.ObjectId,
+    ref:"Etiqueta",
+  }
 });
 
-const Tarea = models.Tarea || model("Tarea", tareaSchema);
+const Tarea = models?.Tarea || model("Tarea", tareaSchema);
 export default Tarea;

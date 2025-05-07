@@ -10,7 +10,7 @@ export default async function Page({ params }: Props) {
   const tarea = await obtenerTarea(params.tareaId); // Se obtiene desde el servidor
 
   return (
-    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] min-h-screen p-8 pb-20 sm:p-20 bg-gradient-to-b from-gray-800 via-slate-900 to-black">
+    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <h1>Editar Tarea</h1>
       <FormularioTareaNueva type="editar" data={tarea} />
     </div>

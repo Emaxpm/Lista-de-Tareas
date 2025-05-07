@@ -65,7 +65,6 @@ export const ToggleEstadoTarea = async (tareaId: string) => {
     }
 };
 
-
 export const borrarTarea = async (id: string) => {
     try {
         await connectToDataBase();

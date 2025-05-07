@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Card,
     CardContent,
@@ -9,75 +9,85 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CheckIcon, Trash2, Pencil } from 'lucide-react'
+import { CheckIcon, Trash2, Pencil, CircleCheckBigIcon, CircleIcon } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { useRouter } from 'next/navigation'
 import { borrarTarea, ToggleEstadoTarea } from '@/lib/action.tarea'
 
 type Props = {
-    _id: string,
-    titulo: string;
-    desc: string;
-    date: string;
-    isCompleted: boolean;
+    tarea: tareaInterFace
+    etiquetas: etiquetaInterFace[]
 }
 
-const TareaTarjeta = ({ _id, titulo, desc, date, isCompleted }: Props) => {
+const TareaTarjeta = ({ tarea, etiquetas }: Props) => {
 
-    const [completed, setCompleted] = useState(isCompleted)
+    const [completed, setCompleted] = useState(tarea.isCompleted)
     const router = useRouter()
+    const [etiqueta, setEtiqueta] = useState<string>()
 
     const handleCompletarTarea = async () => {
 
-        if (_id) {
-            const tareaActualizada = await ToggleEstadoTarea(_id);
+        if (tarea._id) {
+            const tareaActualizada = await ToggleEstadoTarea(tarea._id);
             setCompleted(tareaActualizada.isCompleted);
         }
     }
 
     const handleEditar = () => {
-        router.push(`/tareas/editar/${_id}`)
+        router.push(`/tareas/editar/${tarea._id}`)
     }
 
     async function handleEliminar() {
-        if (_id) {
-            const tareaBorrada = await borrarTarea(_id);
+        if (tarea._id) {
+            const tareaBorrada = await borrarTarea(tarea._id);
         }
     }
+
+    useEffect(() => {
+        const etiquetaSeleccionada = etiquetas.find((etiqueta) => etiqueta._id === tarea.etiquetaId)
+
+        if (etiquetaSeleccionada) {
+            setEtiqueta(etiquetaSeleccionada.nombre);
+        }
+
+    }, [etiquetas, tarea])
 
     return (
         <Card>
             <CardHeader>
                 <CardTitle className='text-xl text-gray-800'>
-                    {titulo}
+                    {tarea.titulo}
                 </CardTitle>
             </CardHeader>
             <Separator />
             <CardContent>
-                <p className='text-sm textgray-600'> {desc} </p>
+                <p className='text-sm textgray-600'> {tarea.descripcion} </p>
             </CardContent>
             <Separator />
+
+            <div className='inline-block w-fit text-sm bg-gray-200 text-gray-800 rounded-full px-3 py-1 mx-4 my-2'>
+                {etiqueta}
+            </div>
+
             <CardFooter className='flex flex-wrap items-center justify-between gap-4'>
                 <p className="text-sm text-gray-600">
-                    {date}
+                    {new Date(tarea.fechaACompletar).toLocaleDateString()}
                 </p>
 
-                {completed ? (
-                    <button
-                        onClick={handleCompletarTarea}
-                        title="Desmarcar tarea"
-                        className="p-1 rounded hover:bg-gray-100 transition"
-                    >
-                        <CheckIcon className="text-green-600 hover:text-green-800" />
-                    </button>
-                ) : (
-                    <Button variant="outline" onClick={handleCompletarTarea}>Completar</Button>
-                )}
-
-
                 <div className='flex gap-3'>
+
                     <Pencil className='text-gray-400 hover:text-blue-500 cursor-pointer' onClick={handleEditar} />
+
                     <Trash2 className='text-gray-400 hover:text-red-500 cursor-pointer' onClick={handleEliminar} />
+
+                    {completed ? (
+
+                        <CircleCheckBigIcon className="text-green-600 cursor-pointer" onClick={handleCompletarTarea} />
+
+                    ) : (
+                        <CircleIcon className="text-gray-400 hover:text-green-600 cursor-pointer" onClick={handleCompletarTarea} />
+                    )}
+
                 </div>
             </CardFooter>
 
