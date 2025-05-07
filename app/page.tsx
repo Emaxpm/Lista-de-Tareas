@@ -1,12 +1,16 @@
 import TareaTarjeta from "@/components/ui/TareaTarjeta";
-import { tareas } from "@/contants";
+import { obtenerTareas } from "@/lib/action.tarea";
 import Image from "next/image";
+import { Button } from "@/components/ui/button"
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+
+ const tareas = await obtenerTareas() as tareaInterFace[];
 
   console.log("tareas", tareas)
   return (
-    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] 	bg-slate-300">
+    <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] min-h-screen p-8 pb-20 sm:p-20 bg-gradient-to-br from-blue-300 via-purple-200 to-pink-200">
       <div className="flex flex-col gap-4 items-center max-w-screen-sm mb-18">
 
         <h1 className="text-4xl font-semibold text-gray-900 drop-shadow-xl">Lista de tareas</h1>
@@ -17,20 +21,27 @@ export default function Home() {
 
       </div>
 
+      <div className="flex justify-end w-full">
+        <Link href="/tareas/crear">
+        <Button className="mb-4" variant="default">Crear tarea </Button>
+        </Link>
+        
+      </div>
+
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full ">
         {
           tareas.map((tarea,index) => (
             <TareaTarjeta
             key={index}
+            _id={tarea._id}
             titulo={tarea.titulo}
-            desc={tarea.desc}
-            date={tarea.date}
+            desc={tarea.descripcion}
+            date={new Date(tarea.fechaACompletar).toLocaleDateString("es-ES")}
             isCompleted={tarea.isCompleted}
 
             />
           ))}
-        
-        
+
       </section>
     </div>
   );
