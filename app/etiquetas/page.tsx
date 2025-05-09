@@ -8,11 +8,10 @@ const page = async() => {
 
   const etiquetas = await obtenerEtiquetas() as etiquetaInterFace[]
 
-
   return (
     <div>
 
-        <h1 className='text-2xl font-semibold mb-4'>Etiquetas</h1>
+        <h2 className='text-2xl font-semibold mb-4'>Etiquetas</h2>
 
         <FormularioEtiqueta
         type='crear'
