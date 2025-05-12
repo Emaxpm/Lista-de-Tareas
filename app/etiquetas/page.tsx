@@ -30,7 +30,7 @@ const page = async() => {
 
         <Separator className='my-5' />
 
-        <p className='text-gray-400'> {etiquetas.length} etiquetas</p>
+        <p className='text-black'> {etiquetas.length} etiquetas</p>
 
     </div>
   )
