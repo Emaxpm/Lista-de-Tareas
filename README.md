@@ -44,4 +44,11 @@ Ejecuta el servidor de desarrollo:
 
 npm run dev
 
+![Inicio](https://github.com/user-attachments/assets/03e99194-593f-4980-add8-6a291c6904c3)
+
+![Crear Tarea](https://github.com/user-attachments/assets/f3aaae91-32c9-4c7f-bbcb-993a31c8cb7e)
+
+![Filtrado de Tareas](https://github.com/user-attachments/assets/c16de447-9b7c-4f96-86ea-fa52ec7b1c75)
+
+
 
